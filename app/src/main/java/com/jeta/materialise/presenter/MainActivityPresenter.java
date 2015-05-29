@@ -33,12 +33,14 @@ public class MainActivityPresenter {
 
             }
         });
-
     }
 
     public void handleLvConversations(ListView lvConversations){
         lvConversations.setAdapter(mConversationAdapter);
+    }
 
+    public void notifyConversationDataSetChanged(){
+        mConversationAdapter.notifyDataSetChanged();
     }
 
 }

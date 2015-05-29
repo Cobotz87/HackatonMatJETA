@@ -11,6 +11,14 @@ public class MessageManager {
     private static MessageManager mInstance;
     private ArrayList<Message> mMessages;
 
+    public static MessageManager getInstance()
+    {
+        if(mInstance == null)
+            mInstance = new MessageManager();
+
+        return mInstance;
+    }
+
     public MessageManager(){
         mMessages = new ArrayList();
     }
@@ -27,11 +35,7 @@ public class MessageManager {
         mMessages.addAll(messages);
     }
 
-    public static MessageManager getInstance()
-    {
-        if(mInstance == null)
-            mInstance = new MessageManager();
-
-        return mInstance;
+    public void clearMessages(){
+        mMessages.clear();
     }
 }

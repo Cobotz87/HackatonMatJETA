@@ -3,12 +3,15 @@ package com.jeta.materialise.matjeta;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.jeta.materialise.JETAapp;
+import com.jeta.materialise.model.Message;
 import com.jeta.materialise.presenter.MainActivityPresenter;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +41,24 @@ public class MainActivity extends AppCompatActivity {
         mPresenter.handleEdUserInput(mEtUserInput);
         mPresenter.handleBtnAsk(mBtnAsk);
         mPresenter.handleLvConversations(mLvConversations);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("JETA", "Resuming.");
+
+        int size = JETAapp.getMessageManager().getMessages().size();
+        Log.d("JETA", Integer.toString(size));
+
+        for (Message curr : JETAapp.getMessageManager().getMessages()) {
+            String curr_msg = curr.getMessage();
+            Log.d("JETA", curr_msg);
+        }
+
+
+        Log.d("JETA", "");
+        mPresenter.notifyConversationDataSetChanged();
     }
 
     @Override
