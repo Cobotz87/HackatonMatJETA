@@ -46,7 +46,7 @@ public class JETAapp extends Application {
         mAddInfoContextActivity = infoContextActivity;
     }
 
-    public static AddInfoContextActivity getmAddInfoContextActivity(){
+    public static AddInfoContextActivity getAddInfoContextActivity(){
         return mAddInfoContextActivity;
     }
 }
