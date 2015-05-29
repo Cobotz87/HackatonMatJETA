@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="CornflowerBlue">#6495ED</color>
+    <color name="MilkWhite">#FEFCFF</color>
+    <color name="Black">#000000</color>
+    <color name="Celeste">#50EBEC</color>
+    <color name="Teal">#008080</color>
+    <color name="LightTeal">#00B3B3</color>
+    <color name="White">#FFFFFF</color>
+    <color name="Green">#00FF00</color>
+    <color name="Yellow">#FFFF00</color>
+    <color name="Red">#FF0000</color>
+    <color name="Cyan">#00FFFF</color>
+    <color name="LightCyan">#E0FFFF</color>
+    <color name="YellowGreen">#52D017</color>
+    <color name="GreenApple">#4CC417</color>
+    <color name="MediumSpringGreen">#348017</color>
+    <color name="Night">#0C090A</color>
+    <color name="SurgeonGreen">#70d4d7</color>
+    <color name="defaultShadow">#7F000000</color>
+    <color name="defaultShadowWhite">#FFFFFF</color>
+    <color name="MediumShadowGray">#bdbdbd</color>
+    <color name="Medium2ShadowGray">#939393</color>
+    <color name="SurgeonBlue">#abddda</color>
+    <color name="DarkCyan">#0e8a89</color>
+    <color name="FacebookBlue">#003366</color>
+    <color name="LightFacebookBlue">#4591d1</color>
+    <color name="Transparent">#00000000</color>
+    <color name="LightSkyBlue">#e1e9ff</color>
+    <color name="StrongPink">#ffff36a7</color>
+    <color name="LightPink">#ffc3e1</color>
+    <color name="MediumPink">#ff78bb</color>
+    <color name="DarkPink">#4c1f36</color>
+    <color name="Turquoise">#1da196</color>
+
+    <array name="progress_colors">
+        <item>#FF3F8AF8</item>
+        <item>#FFD8433C</item>
+        <item>#FFF2AF3A</item>
+        <item>#FF279B5E</item>
+    </array>
+
+    <array name="in_colors">
+        <item>#ffffff</item>
+        <item>#DEFBFF</item>
+        <item>#ABFFF1</item>
+    </array>
+
+</resources>
