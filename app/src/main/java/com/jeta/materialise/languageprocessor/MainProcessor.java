@@ -48,13 +48,10 @@ public class MainProcessor {
         i_stream.close();
 
         NameFinderME nameFinder = new NameFinderME(model);
-        Span nameSpans[] = nameFinder.find(i_token);
 
-        String[] outputName = new String[nameSpans.length];
-        for(int i=0; i<nameSpans.length; i++){
-            outputName[i] = nameSpans[i].toString();
-        }
-        return outputName;
+        Span nameSpans[] = nameFinder.find(i_token);
+        String[] outputNames = Span.spansToStrings(nameSpans, i_token);
+        return outputNames;
     }
 }
 
