@@ -52,42 +52,36 @@ public class AddInfoContextPresenter {
         });
     }
 
-    public void handleBtnUseContext(Button btnUseContext) {
+    public void handleBtnSentencing(Button btnSentencing) {
 
-        btnUseContext.setOnClickListener(new View.OnClickListener() {
+        btnSentencing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(mInfoContext != null && !mInfoContext.isEmpty())
-                    createConfirmationAlertBox();
+                if (mInfoContext != null && !mInfoContext.isEmpty())
+                    createSentencingAlertBox();
             }
         });
     }
 
-    private void createConfirmationAlertBox(){
+    private void createSentencingAlertBox(){
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-        builder.setTitle("Confirm?");
+        builder.setTitle("Do Sentencing?");
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //TODO
                 InputStream sentences_detector_is = mActivity.getResources().openRawResource(R.raw.ensent);
 
                 try {
-                    Log.d("JETA", "Processing sentences...");
+                    Log.d("JETA", "Doing SENTENCING...");
                     String[] sentences = JETAapp.getNLProcessor().SentenceDetect(mInfoContext, sentences_detector_is);
                     Log.d("JETA", "Done!");
 
-                    JETAapp.getMessageManager().clearMessages();
-
-                    for(String curr_sentence : sentences){
-                        Log.d("JETA", curr_sentence);
-                        Message curr_message = new Message("JETA", curr_sentence);
-                        JETAapp.getMessageManager().addMessage(curr_message);
-                    }
+                    commitMessages(sentences);
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.d("JETA", "Failed to process information context.");
+                    Log.d("JETA", "Failed to SENTENCING information context.");
                 }
 
                 dialog.dismiss();
@@ -102,6 +96,60 @@ public class AddInfoContextPresenter {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void handleBtnTokenize(Button btnTokenize){
+        btnTokenize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mInfoContext != null && !mInfoContext.isEmpty())
+                    createTokenizeAlertDialog();
+            }
+        });
+    }
+
+    private void createTokenizeAlertDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        builder.setTitle("Do Tokenization?");
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //TODO
+                InputStream tokenization_is = mActivity.getResources().openRawResource(R.raw.entoken);
+
+                try {
+                    Log.d("JETA", "Processing TOKENIZATION...");
+                    String[] tokenized_strings = JETAapp.getNLProcessor().SentenceDetect(mInfoContext, tokenization_is);
+                    Log.d("JETA", "Done!");
+
+                    commitMessages(tokenized_strings);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("JETA", "Failed to SENTENCING information context.");
+                }
+
+            dialog.dismiss();
+            mActivity.finish();
+        }
+    });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //TODO
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void commitMessages(String[] strings)
+    {
+        JETAapp.getMessageManager().clearMessages();
+
+        for(String curr_string : strings){
+            Message curr_message = new Message("JETA", curr_string);
+            JETAapp.getMessageManager().addMessage(curr_message);
+        }
     }
 
 }

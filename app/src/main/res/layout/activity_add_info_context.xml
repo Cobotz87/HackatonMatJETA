@@ -10,18 +10,17 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:weightSum="1">
 
-
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Use this context"
-        android:id="@+id/btn_use_context"
+        android:text="Sentencing"
+        android:id="@+id/btn_sentencing"
         android:background="@drawable/btn_red"
         android:layout_gravity="bottom"
         android:textColor="@color/White"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -31,7 +30,7 @@
         android:id="@+id/et_info_context"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/btn_use_context"
+        android:layout_above="@+id/btn_sentencing"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/tv_add_context_title" />
@@ -45,4 +44,16 @@
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tokenize"
+        android:id="@+id/btn_tokenize"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_blue"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btn_sentencing"
+        android:layout_toEndOf="@+id/btn_sentencing" />
 </RelativeLayout>

@@ -14,7 +14,8 @@ import com.jeta.materialise.presenter.AddInfoContextPresenter;
  */
 public class AddInfoContextActivity extends AppCompatActivity {
 
-    private Button mBtnAddContext;
+    private Button mBtnSentencingt;
+    private Button mBtnTokenize;
     private EditText mEtInfoContext;
 
     private AddInfoContextPresenter mPresenter;
@@ -28,11 +29,13 @@ public class AddInfoContextActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_info_context);
 
-        mBtnAddContext = (Button)findViewById(R.id.btn_use_context);
+        mBtnSentencingt = (Button)findViewById(R.id.btn_sentencing);
+        mBtnTokenize = (Button) findViewById(R.id.btn_tokenize);
         mEtInfoContext = (EditText)findViewById(R.id.et_info_context);
 
-        mPresenter.handleBtnUseContext(mBtnAddContext);
+        mPresenter.handleBtnSentencing(mBtnSentencingt);
         mPresenter.handleEdInfoContext(mEtInfoContext);
+        mPresenter.handleBtnTokenize(mBtnTokenize);
 
     }
 
