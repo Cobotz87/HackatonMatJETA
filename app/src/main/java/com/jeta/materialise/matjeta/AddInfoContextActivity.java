@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.jeta.materialise.JETAapp;
 import com.jeta.materialise.presenter.AddInfoContextPresenter;
 
 /**
@@ -24,6 +25,7 @@ public class AddInfoContextActivity extends AppCompatActivity {
 
     public AddInfoContextActivity(){
         mPresenter = new AddInfoContextPresenter(this);
+        JETAapp.setAddInfoContextActivity(this);
     }
 
     @Override
@@ -42,7 +44,6 @@ public class AddInfoContextActivity extends AppCompatActivity {
         mPresenter.handleBtnTagger(mBtnTaggering);
         mPresenter.handleBtnNamedEntity(mBtnNamed);
         mPresenter.handleEdInfoContext(mEtInfoContext);
-
     }
 
     @Override
@@ -54,5 +55,9 @@ public class AddInfoContextActivity extends AppCompatActivity {
         item_add_info_context.setVisible(false);
 
         return true;
+    }
+
+    AddInfoContextPresenter getPresenter(){
+        return mPresenter;
     }
 }

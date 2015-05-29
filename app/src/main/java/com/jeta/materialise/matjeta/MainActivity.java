@@ -6,13 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.jeta.materialise.JETAapp;
 import com.jeta.materialise.model.Message;
 import com.jeta.materialise.presenter.MainActivityPresenter;
+import com.rey.material.widget.ProgressView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,13 +23,19 @@ public class MainActivity extends AppCompatActivity {
     private ListView mLvConversations;
     private EditText mEtUserInput;
     private Button mBtnAsk;
+    private ProgressView mProgressView;
+    private TextView tvLoading;
 
     //Presenter
     private MainActivityPresenter mPresenter;
 
+    private boolean mIsBusy;
+
     public MainActivity(){
         super();
         mPresenter = new MainActivityPresenter(this);
+        JETAapp.setMainActivity(this);
+        mIsBusy = false;
     }
 
     @Override
@@ -37,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         mLvConversations = (ListView) findViewById(R.id.lv_conversations);
         mEtUserInput = (EditText) findViewById(R.id.et_user_input);
         mBtnAsk = (Button) findViewById(R.id.btn_ask);
+        mProgressView = (ProgressView) findViewById(R.id.pv_conversation);
+        tvLoading = (TextView) findViewById(R.id.tv_loading);
 
         mPresenter.handleEdUserInput(mEtUserInput);
         mPresenter.handleBtnAsk(mBtnAsk);
@@ -46,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         Log.d("JETA", "Resuming.");
 
         int size = JETAapp.getMessageManager().getMessages().size();
@@ -56,9 +68,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("JETA", curr_msg);
         }
 
-
         Log.d("JETA", "");
-        mPresenter.notifyConversationDataSetChanged();
     }
 
     @Override
@@ -87,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 return true;
             case R.id.action_add_info_context:
+                if(mIsBusy)
+                    return true;
+
                 Intent intent = new Intent(this, AddInfoContextActivity.class);
                 startActivity(intent);
             default:
@@ -98,6 +111,35 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setBusy(boolean isBusy){
+        mIsBusy = isBusy;
+    }
+
+    public boolean isBusy(){
+        return mIsBusy;
+    }
+
+    public void handleBusy(){
+        if(mIsBusy){
+            mProgressView.setVisibility(View.VISIBLE);
+            tvLoading.setVisibility(View.VISIBLE);
+            mLvConversations.setVisibility(View.INVISIBLE);
+            mEtUserInput.setVisibility(View.INVISIBLE);
+            mBtnAsk.setVisibility(View.INVISIBLE);
+        }
+        else{
+            mProgressView.setVisibility(View.GONE);
+            tvLoading.setVisibility(View.GONE);
+            mLvConversations.setVisibility(View.VISIBLE);
+            mEtUserInput.setVisibility(View.VISIBLE);
+            mBtnAsk.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public MainActivityPresenter getPresenter(){
+        return mPresenter;
     }
 
 }

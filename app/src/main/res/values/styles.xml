@@ -5,4 +5,11 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="ColoredCircularProgressDrawableStyle" parent="Material.Drawable.CircularProgress">
+        <item name="cpd_padding">40dp</item>
+        <item name="cpd_strokeSize">7dp</item>
+        <item name="cpd_outAnimDuration">400</item>
+        <item name="cpd_strokeColors">@array/progress_colors</item>
+    </style>
+
 </resources>
