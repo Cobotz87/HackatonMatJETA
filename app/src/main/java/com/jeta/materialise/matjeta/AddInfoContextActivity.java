@@ -16,6 +16,8 @@ public class AddInfoContextActivity extends AppCompatActivity {
 
     private Button mBtnSentencingt;
     private Button mBtnTokenize;
+    private Button mBtnTaggering;
+    private Button mBtnNamed;
     private EditText mEtInfoContext;
 
     private AddInfoContextPresenter mPresenter;
@@ -31,11 +33,15 @@ public class AddInfoContextActivity extends AppCompatActivity {
 
         mBtnSentencingt = (Button)findViewById(R.id.btn_sentencing);
         mBtnTokenize = (Button) findViewById(R.id.btn_tokenize);
+        mBtnTaggering = (Button) findViewById(R.id.btn_tagger);
+        mBtnNamed = (Button) findViewById(R.id.btn_named_entity);
         mEtInfoContext = (EditText)findViewById(R.id.et_info_context);
 
         mPresenter.handleBtnSentencing(mBtnSentencingt);
-        mPresenter.handleEdInfoContext(mEtInfoContext);
         mPresenter.handleBtnTokenize(mBtnTokenize);
+        mPresenter.handleBtnTagger(mBtnTaggering);
+        mPresenter.handleBtnNamedEntity(mBtnNamed);
+        mPresenter.handleEdInfoContext(mEtInfoContext);
 
     }
 

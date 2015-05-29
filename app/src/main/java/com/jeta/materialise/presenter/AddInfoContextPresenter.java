@@ -8,12 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import com.jeta.materialise.JETAapp;
-import com.jeta.materialise.adapter.ConversationAdapter;
 import com.jeta.materialise.matjeta.AddInfoContextActivity;
-import com.jeta.materialise.matjeta.MainActivity;
 import com.jeta.materialise.matjeta.R;
 import com.jeta.materialise.model.Message;
 
@@ -69,7 +66,6 @@ public class AddInfoContextPresenter {
         builder.setTitle("Do Sentencing?");
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                //TODO
                 InputStream sentences_detector_is = mActivity.getResources().openRawResource(R.raw.ensent);
 
                 try {
@@ -90,7 +86,6 @@ public class AddInfoContextPresenter {
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                //TODO
                 dialog.dismiss();
             }
         });
@@ -113,7 +108,6 @@ public class AddInfoContextPresenter {
         builder.setTitle("Do Tokenization?");
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                //TODO
                 InputStream tokenization_is = mActivity.getResources().openRawResource(R.raw.entoken);
 
                 try {
@@ -134,7 +128,135 @@ public class AddInfoContextPresenter {
     });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                //TODO
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void handleBtnTagger(Button btnTagger){
+        btnTagger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mInfoContext != null && !mInfoContext.isEmpty())
+                    createTaggerAlertBox();
+            }
+        });
+    }
+
+    private void createTaggerAlertBox(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        builder.setTitle("Do Taggering?");
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                InputStream sentences_detector_is = mActivity.getResources().openRawResource(R.raw.ensent);
+                try {
+                    Log.d("JETA", "Doing TAGGERING...");
+                    String[] sentences = JETAapp.getNLProcessor().SentenceDetect(mInfoContext, sentences_detector_is);
+                    Log.d("JETA", "Done!");
+
+                    commitMessages(sentences);
+
+                    for(String s : sentences){
+                        s = s.substring(0, s.length() - 1);
+                        InputStream tagger_detector_is = mActivity.getResources().openRawResource(R.raw.enposmaxent);
+                        String tagged_sentences = new String();
+
+                        try {
+                            Log.d("JETA", "Processing TAGGERS...");
+                            tagged_sentences = JETAapp.getNLProcessor().tagPartOfSpeech(s, tagger_detector_is);
+                            Log.d("JETA", "Done!");
+
+                            Message curr_message = new Message("JETA", tagged_sentences);
+                            JETAapp.getMessageManager().addMessage(curr_message);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Log.d("JETA", "Failed to TAGGER information context.");
+                        }
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("JETA", "Failed to SENTENCING information context.");
+                }
+
+                dialog.dismiss();
+                mActivity.finish();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void handleBtnNamedEntity(Button btnNamedEntity){
+        btnNamedEntity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mInfoContext != null && !mInfoContext.isEmpty())
+                    createNamedEntityAlertDialog();
+            }
+        });
+    }
+
+    private void createNamedEntityAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        builder.setTitle("Do NAMED ENTITY?");
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                JETAapp.getMessageManager().clearMessages();
+
+                String[] tokens = new String[0];
+                InputStream tokenizer_is = mActivity.getResources().openRawResource(R.raw.entoken);
+                try {
+                    Log.d("JETA", "Doing TOKENIZING in NAMEDENTITY...");
+                    tokens = JETAapp.getNLProcessor().Tokenize(mInfoContext, tokenizer_is);
+                    Log.d("JETA", "Done!");
+
+                    tokenizer_is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("JETA", "Failed to TOKENIZE during NAMEDENTITY.");
+                }
+
+                InputStream name_detector_is = mActivity.getResources().openRawResource(R.raw.ennerperson);
+                InputStream location_detector_is = mActivity.getResources().openRawResource(R.raw.ennerlocation);
+                try {
+                    Log.d("JETA", "Doing NAMEDENTITY...");
+                    String[] names = JETAapp.getNLProcessor().findName(tokens, name_detector_is);
+                    String[] locations = JETAapp.getNLProcessor().findName(tokens, location_detector_is);
+                    Log.d("JETA", "Done!");
+
+                    for (String n : names) {
+                        Message curr_message = new Message("JETA", n);
+                        JETAapp.getMessageManager().addMessage(curr_message);
+                    }
+
+                    for (String n : locations) {
+                        Message curr_message = new Message("JETA", n);
+                        JETAapp.getMessageManager().addMessage(curr_message);
+                    }
+
+                    name_detector_is.close();
+                    location_detector_is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("JETA", "Failed doing NAMEDENTITY...");
+                }
+
+                dialog.dismiss();
+                mActivity.finish();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
             }
         });
