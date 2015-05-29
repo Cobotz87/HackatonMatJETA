@@ -4,17 +4,22 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.jeta.materialise.JETAapp;
 import com.jeta.materialise.languageprocessor.ContextDigester;
+import com.jeta.materialise.languageprocessor.ContextIntrepreter;
 import com.jeta.materialise.matjeta.AddInfoContextActivity;
 import com.jeta.materialise.matjeta.R;
+import com.jeta.materialise.model.Attributes;
+import com.jeta.materialise.model.Interface.IObject;
 import com.jeta.materialise.model.Message;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by ArifHBtz on 5/29/2015.
@@ -254,7 +259,40 @@ public class AddInfoContextPresenter {
         btnConvertObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                JETAapp.getMessageManager().clearMessages();
 
+                JETAapp.getMainActivity().setBusy(true);
+                JETAapp.getMainActivity().handleBusy();
+
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JETAapp.getDatabase().clearObjects();
+
+                        //String[] tokenizedTags = mDigester.getTokenizedPOSTags(mInfoContext);
+                        String[] tokens = mDigester.getTokens(mInfoContext);
+                        String[] namesFound = mDigester.getNames(tokens);
+
+                        JETAapp.getMessageManager().clearMessages();
+
+                        ContextIntrepreter intrepreter = new ContextIntrepreter();
+                        //intrepreter.setPOSTags(tokenizedTags);
+                        intrepreter.setNamesFound(namesFound);
+                        intrepreter.Intrepret();
+
+                        ArrayList<Attributes> objectsCreated = JETAapp.getDatabase().getObjects();
+                        if(objectsCreated.size() == 0)
+                            Log.d("JETA", "Empty database list");
+                        for(Attributes currObject : objectsCreated) {
+                            Message curr_message = new Message("Object created", currObject.getLabel());
+                            JETAapp.getMessageManager().addMessage(curr_message);
+                        }
+                        updateMainActivity();
+
+                    }
+                });
+                t.start();
+                mActivity.finish();
             }
         });
     }

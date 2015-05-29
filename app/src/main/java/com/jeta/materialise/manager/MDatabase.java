@@ -1,5 +1,6 @@
 package com.jeta.materialise.manager;
 
+import com.jeta.materialise.model.Attributes;
 import com.jeta.materialise.model.Interface.IObject;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class MDatabase {
     private static MDatabase mInstance;
 
     private static ArrayList<String> mContextStrings;
-    private static ArrayList<IObject> mDatabaseObjects;
+    private static ArrayList<Attributes> mDatabaseObjects;
 
     public static MDatabase getInstance(){
         if(mInstance == null)
@@ -37,16 +38,17 @@ public class MDatabase {
         mContextStrings.addAll(strings);
     }
 
-    public static ArrayList<IObject> getObjects(){
+    public static ArrayList<Attributes> getObjects(){
         return mDatabaseObjects;
     }
 
-    public static void addObject(IObject object){
+    public static void addObject(Attributes object){
         mDatabaseObjects.add(object);
     }
 
-    public static void addObjects(ArrayList<IObject> objects){
+    public static void addObjects(ArrayList<Attributes> objects) {
         mDatabaseObjects.addAll(objects);
-    }
+        }
 
+    public static void clearObjects(){mDatabaseObjects.clear();}
 }
