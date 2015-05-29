@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.jeta.materialise.languageprocessor.NaturalLanguageProcessor;
+import com.jeta.materialise.manager.MDatabase;
 import com.jeta.materialise.manager.MessageManager;
 import com.jeta.materialise.matjeta.AddInfoContextActivity;
 import com.jeta.materialise.matjeta.MainActivity;
@@ -19,11 +20,13 @@ public class JETAapp extends Application {
     private static NaturalLanguageProcessor mNaturalLanguageProcessor;
     private static MainActivity mMainActivity;
     private static AddInfoContextActivity mAddInfoContextActivity;
+    private static MDatabase mDatabase;
 
     public JETAapp(){
         Log.d("JETA","Initializing application...");
         mMessageManager = MessageManager.getInstance();
         mNaturalLanguageProcessor = NaturalLanguageProcessor.getInstance();
+        mDatabase = MDatabase.getInstance();
     }
 
     public static MessageManager getMessageManager(){
@@ -48,5 +51,9 @@ public class JETAapp extends Application {
 
     public static AddInfoContextActivity getmAddInfoContextActivity(){
         return mAddInfoContextActivity;
+    }
+
+    public static MDatabase getDatabase(){
+        return mDatabase;
     }
 }
