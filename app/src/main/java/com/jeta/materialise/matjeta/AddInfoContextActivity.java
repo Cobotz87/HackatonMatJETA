@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jeta.materialise.JETAapp;
+import com.jeta.materialise.model.Attributes;
+import com.jeta.materialise.model.Interface.IObject;
 import com.jeta.materialise.presenter.AddInfoContextPresenter;
 
 /**
@@ -20,6 +22,7 @@ public class AddInfoContextActivity extends AppCompatActivity {
     private Button mBtnTaggering;
     private Button mBtnNamed;
     private Button mBtnAddContext;
+    private Button mBtnConvertObj;
     private EditText mEtInfoContext;
 
     private AddInfoContextPresenter mPresenter;
@@ -39,6 +42,7 @@ public class AddInfoContextActivity extends AppCompatActivity {
         mBtnTaggering = (Button) findViewById(R.id.btn_tagger);
         mBtnNamed = (Button) findViewById(R.id.btn_named_entity);
         mBtnAddContext = (Button) findViewById(R.id.btn_use_this_context);
+        mBtnConvertObj = (Button) findViewById(R.id.btn_convert_iobject);
         mEtInfoContext = (EditText)findViewById(R.id.et_info_context);
 
         mPresenter.handleBtnSentencing(mBtnSentencingt);
@@ -46,7 +50,9 @@ public class AddInfoContextActivity extends AppCompatActivity {
         mPresenter.handleBtnTagger(mBtnTaggering);
         mPresenter.handleBtnNamedEntity(mBtnNamed);
         mPresenter.handleBtnUseContext(mBtnAddContext);
+        mPresenter.handleBtnConvertToObj(mBtnConvertObj);
         mPresenter.handleEdInfoContext(mEtInfoContext);
+
     }
 
     @Override

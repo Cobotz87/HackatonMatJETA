@@ -241,6 +241,24 @@ public class AddInfoContextPresenter {
         dialog.show();
     }
 
+    public void handleBtnUseContext(Button btnUseContext){
+        btnUseContext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    public void handleBtnConvertToObj(Button btnConvertObj){
+        btnConvertObj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
     private void commitMessages(String[] strings, boolean clear){
         if(clear)
             JETAapp.getMessageManager().clearMessages();

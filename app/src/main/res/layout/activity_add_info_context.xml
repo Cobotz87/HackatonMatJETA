@@ -99,4 +99,18 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Convert \nto Obj"
+        android:layout_marginTop="5dp"
+        android:id="@+id/btn_convert_iobject"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_black"
+        android:layout_below="@+id/btn_named_entity"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
 </RelativeLayout>
