@@ -115,4 +115,20 @@ public class ContextDigester {
         }
         return outputNames;
     }
+
+    public static String[] getTokenizedPOSTags(String paragraph){
+        ArrayList<String> tagsTokens = new ArrayList<String>();
+        String[] sentences = getSentences(paragraph);
+        for(String s : sentences){
+            s = s.substring(0, s.length() - 1);
+            String posTags = getPOSTags(s);
+            String[] tokens = getTokens(posTags);
+            for(String t : tokens)
+                tagsTokens.add(t);
+        }
+
+        String[] tempString = new String[tagsTokens.size()];
+        tempString = tagsTokens.toArray(tempString);
+        return tempString;
+    }
 }
