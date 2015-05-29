@@ -118,7 +118,7 @@ public class AddInfoContextPresenter {
 
                 try {
                     Log.d("JETA", "Processing TOKENIZATION...");
-                    String[] tokenized_strings = JETAapp.getNLProcessor().SentenceDetect(mInfoContext, tokenization_is);
+                    String[] tokenized_strings = JETAapp.getNLProcessor().Tokenize(mInfoContext, tokenization_is);
                     Log.d("JETA", "Done!");
 
                     commitMessages(tokenized_strings);

@@ -94,6 +94,5 @@ public class NaturalLanguageProcessor {
         result = stringBuilder.toString();
         return result;
     }
-
 }
 
