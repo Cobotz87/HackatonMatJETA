@@ -35,7 +35,15 @@ import opennlp.tools.util.Span;
 /**
  * Created by hoong_000 on 5/29/2015.
  */
-public class MainProcessor {
+public class NaturalLanguageProcessor {
+
+    private static NaturalLanguageProcessor mInstance;
+    public static NaturalLanguageProcessor getInstance(){
+        if(mInstance == null)
+            mInstance = new NaturalLanguageProcessor();
+        return mInstance;
+    }
+
     public static String[] SentenceDetect(String string, InputStream stream) throws InvalidFormatException,
             IOException {
 

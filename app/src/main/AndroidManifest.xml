@@ -3,6 +3,7 @@
     package="com.jeta.materialise.matjeta" >
 
     <application
+        android:name="com.jeta.materialise.JETAapp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".AddInfoContextActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+
     </application>
 
 </manifest>

@@ -3,4 +3,5 @@
 
     <string name="hello_world">This is not JETA</string>
     <string name="action_settings">Settings</string>
+    <string name="action_add_info_context">Add Context</string>
 </resources>
