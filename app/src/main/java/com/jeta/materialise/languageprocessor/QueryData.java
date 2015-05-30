@@ -15,33 +15,29 @@ public class QueryData {
 
     EQType mQuestionType;
 
-    public String queryAnswer(String[] tags, String[] namesFound){
+    public String queryAnswer(String question){
         String answer = new String();
-        if(isQuestion(tags)){
+        if(isQuestion(question)){
             ArrayList<Attributes> database = JETAapp.getDatabase().getObjects();
             if(mQuestionType == EQType.HOW_MANY)
                 answer = ("There are " + Integer.toString(database.size()) + ".");
             else if (mQuestionType == EQType.WHO){
                 ArrayList<String> existObj = new ArrayList<>();
                 ArrayList<String> nonExist = new ArrayList<>();
-                for(String s : namesFound){
-                    for(Attributes obj : database){
-                        String label = obj.getLabel();
-                        if(label.equals(s))
-                            existObj.add(s);
-                        else
-                            nonExist.add(s);
-                    }
+
+                for(Attributes obj : database){
+                    String label = obj.getLabel();
+                    if(question.toLowerCase().contains(label.toLowerCase()))
+                        existObj.add(label);
                 }
-                String positive = null;
+
+                String positive = "";
                 for(String p : existObj)
                     positive += p + (", ");
-                answer = "I know " + positive;
-
-                String negative = null;
-                for(String n : nonExist)
-                    negative += n + (", ");
-                answer += ". I do not know " + negative;
+                if(!existObj.isEmpty())
+                    answer = "I know " + positive;
+                else
+                    answer = "I do not know.";
             }
             else
                 answer = "I'm afraid I do not have answer for that.";
@@ -52,24 +48,21 @@ public class QueryData {
         return answer;
     }
 
-    private boolean isQuestion(String[] tags){
-        for(String s : tags){
-            String[] split = s.split("_");
-            if(split[1].equals("WP")){
-                if(split[0].equalsIgnoreCase("who"))
-                    mQuestionType = EQType.WHO;
-                else if(split[0].equalsIgnoreCase("why"))
-                    mQuestionType = EQType.WHY;
-                else if(split[0].equalsIgnoreCase("what"))
-                    mQuestionType = EQType.WHAT;
-                else if(split[0].equalsIgnoreCase("when"))
-                    mQuestionType = EQType.WHEN;
-                else if(split[0].equalsIgnoreCase("WHERE"))
-                    mQuestionType = EQType.WHERE;
-                else if(split[0].contains("how many"))
-                    mQuestionType = EQType.HOW_MANY;
-            }
-        }
+    private boolean isQuestion(String question){
+        if(question.toLowerCase().contains("who"))
+            mQuestionType = EQType.WHO;
+        else if(question.toLowerCase().contains("why"))
+            mQuestionType = EQType.WHY;
+        else if(question.toLowerCase().contains("what"))
+            mQuestionType = EQType.WHAT;
+        else if(question.toLowerCase().contains("when"))
+            mQuestionType = EQType.WHEN;
+        else if(question.toLowerCase().contains("where"))
+            mQuestionType = EQType.WHERE;
+        else if(question.toLowerCase().contains("how many"))
+            mQuestionType = EQType.HOW_MANY;
+        else return false;
+
         return true;
     }
 }
