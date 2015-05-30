@@ -32,6 +32,7 @@ public class AddInfoContextPresenter {
 
     public AddInfoContextPresenter(AddInfoContextActivity activity){
         mActivity = activity;
+        mInfoContext = "";
     }
 
     public void handleEdInfoContext(final EditText edInfoContext){

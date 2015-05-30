@@ -36,5 +36,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'org.apache.opennlp:opennlp-tools:1.5.3'
     compile 'com.github.rey5137:material:1.1.1'
-
+    compile 'in.srain.cube:ultra-ptr:1.0.9'
 }
