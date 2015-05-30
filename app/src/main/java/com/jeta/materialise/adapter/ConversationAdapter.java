@@ -11,6 +11,8 @@ import com.jeta.materialise.matjeta.MainActivity;
 import com.jeta.materialise.matjeta.R;
 import com.jeta.materialise.model.Message;
 
+import java.text.SimpleDateFormat;
+
 import opennlp.maxent.Main;
 
 /**
@@ -45,8 +47,13 @@ public class ConversationAdapter extends BaseAdapter{
 
         TextView tvOwnerName = (TextView) msgLayout.findViewById(R.id.tv_msg_owner);
         TextView tvMsgContent = (TextView) msgLayout.findViewById(R.id.tv_msg_content);
+        TextView tvDate = (TextView) msgLayout.findViewById(R.id.tv_date);
 
         Message currMessage = JETAapp.getMessageManager().getMessages().get(position);
+
+        String dateStr = new SimpleDateFormat("HH:mm, dd-MM-yy").format(currMessage.getTimeStamp());
+        tvDate.setText(dateStr);
+
         tvOwnerName.setText(currMessage.getOwnerName());
         tvMsgContent.setText(currMessage.getMessage());
 

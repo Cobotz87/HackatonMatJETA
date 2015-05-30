@@ -251,7 +251,32 @@ public class AddInfoContextPresenter {
         btnUseContext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                JETAapp.getMessageManager().clearMessages();
 
+                JETAapp.getMainActivity().setBusy(true);
+                JETAapp.getMainActivity().handleBusy();
+
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JETAapp.getDatabase().clearObjects();
+
+                        //String[] tokenizedTags = mDigester.getTokenizedPOSTags(mInfoContext);
+                        String[] tokens = mDigester.getTokens(mInfoContext);
+                        String[] namesFound = mDigester.getNames(tokens);
+
+                        JETAapp.getMessageManager().clearMessages();
+
+                        ContextIntrepreter intrepreter = new ContextIntrepreter();
+                        //intrepreter.setPOSTags(tokenizedTags);
+                        intrepreter.setNamesFound(namesFound);
+                        intrepreter.Intrepret();
+
+                        updateMainActivity();
+                    }
+                });
+                t.start();
+                mActivity.finish();
             }
         });
     }

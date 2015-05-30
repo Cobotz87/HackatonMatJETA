@@ -83,7 +83,9 @@ public class MainActivityPresenter {
                                 JETAapp.getMessageManager().addMessage(curr_message);
                                 JETAapp.getMainActivity().setBusy(false);
                                 JETAapp.getMainActivity().handleBusy();
+                                JETAapp.getMainActivity().clearInputBox();
                                 notifyConversationDataSetChanged();
+                                mActivity.focusListBoxItem();
                             }
                         });
                     }

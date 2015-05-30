@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         mPresenter.handleEdUserInput(mEtUserInput);
         mPresenter.handleBtnAsk(mBtnAsk);
         mPresenter.handleLvConversations(mLvConversations);
+
     }
 
     @Override
@@ -142,4 +143,19 @@ public class MainActivity extends AppCompatActivity {
         return mPresenter;
     }
 
+    public void clearInputBox(){
+        mEtUserInput.setText("");
+    }
+
+    public void focusListBoxItem(){
+        //mLvConversations.setSelection(0);
+        mLvConversations.post(new Runnable() {
+            @Override
+            public void run() {
+                mLvConversations.setSelection(mLvConversations.getAdapter().getCount() - 1);
+            }
+        });
+
+        mLvConversations.requestFocus();
+    }
 }
