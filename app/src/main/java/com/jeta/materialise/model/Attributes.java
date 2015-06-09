@@ -11,11 +11,14 @@ import java.util.Map;
  * Created by ArifHBtz on 5/30/2015.
  */
 public class Attributes implements IObject{
+    public enum EGender{
+        MALE, FEMALE, NEUTRAL
+    }
 
     private Object mTag;
 
     private String mLabel;
-    private String mGender;
+    private EGender mGender = EGender.NEUTRAL;
     private ArrayList<Pair<String, String>> mReferencePair;
     private String mFrom;
     private String mTo;
@@ -48,11 +51,11 @@ public class Attributes implements IObject{
         mLabel = label;
     }
 
-    public String getGender(){
+    public EGender getGender(){
         return mGender;
     }
 
-    public void setGender(String gender){
+    public void setGender(EGender gender){
         mGender = gender;
     }
 

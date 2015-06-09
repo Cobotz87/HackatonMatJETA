@@ -262,14 +262,14 @@ public class AddInfoContextPresenter {
                     public void run() {
                         JETAapp.getDatabase().clearObjects();
 
-                        //String[] tokenizedTags = mDigester.getTokenizedPOSTags(mInfoContext);
+                        String[] tokenizedTags = mDigester.getTokenizedPOSTags(mInfoContext);
                         String[] tokens = mDigester.getTokens(mInfoContext);
                         String[] namesFound = mDigester.getNames(tokens);
 
                         JETAapp.getMessageManager().clearMessages();
 
                         ContextIntrepreter intrepreter = new ContextIntrepreter();
-                        //intrepreter.setPOSTags(tokenizedTags);
+                        intrepreter.setPOSTags(tokenizedTags);
                         intrepreter.setNamesFound(namesFound);
                         intrepreter.Intrepret();
 

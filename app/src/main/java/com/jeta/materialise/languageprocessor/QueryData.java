@@ -23,20 +23,31 @@ public class QueryData {
                 answer = ("There are " + Integer.toString(database.size()) + ".");
             else if (mQuestionType == EQType.WHO){
                 ArrayList<String> existObj = new ArrayList<>();
-                ArrayList<String> nonExist = new ArrayList<>();
+                ArrayList<String> genderObj = new ArrayList<>();
 
                 for(Attributes obj : database){
                     String label = obj.getLabel();
-                    if(question.toLowerCase().contains(label.toLowerCase()))
+                    if(question.toLowerCase().contains(label.toLowerCase())) {
                         existObj.add(label);
+                        if(obj.getGender() == Attributes.EGender.FEMALE)
+                            genderObj.add("female");
+                        else if (obj.getGender() == Attributes.EGender.MALE)
+                            genderObj.add("male");
+                        else
+                            genderObj.add("neutral");
+                    }
                 }
 
                 String positive = "";
                 for(int i =0; i<existObj.size(); i++){
                     if(existObj.size() > 1 && i == existObj.size()-1)
-                        positive += ("and");
+                        positive += ("and ");
 
                     positive += existObj.get(i);
+                    positive += ("(");
+                    positive += genderObj.get(i);
+                    positive += (")");
+
                     if(i != existObj.size()-1)
                         positive += (", ");
                     else

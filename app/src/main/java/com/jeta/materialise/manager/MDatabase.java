@@ -15,6 +15,8 @@ public class MDatabase {
     private static ArrayList<String> mContextStrings;
     private static ArrayList<Attributes> mDatabaseObjects;
 
+    private static Attributes mActiveObject;
+
     public static MDatabase getInstance(){
         if(mInstance == null)
             mInstance = new MDatabase();
@@ -51,4 +53,26 @@ public class MDatabase {
         }
 
     public static void clearObjects(){mDatabaseObjects.clear();}
+
+    public static Attributes getObjectByName(String name){
+        Attributes return_object = null;
+        for(Attributes object : mDatabaseObjects) {
+            if (object.getLabel().equalsIgnoreCase(name))
+                return_object = object;
+        }
+        return return_object;
+    }
+
+    public static void setActiveObject(String name){
+        for(Attributes object : mDatabaseObjects) {
+            if (object.getLabel() == name)
+                mActiveObject = object;
+        }
+    }
+
+    public static void setActiveObject(Attributes object){
+                mActiveObject = object;
+    }
+
+    public static Attributes getActiveObject(){return mActiveObject;}
 }
