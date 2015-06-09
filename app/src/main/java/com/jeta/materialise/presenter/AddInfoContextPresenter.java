@@ -124,7 +124,6 @@ public class AddInfoContextPresenter {
                 Thread t = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        InputStream tokenization_is = mActivity.getResources().openRawResource(R.raw.entoken);
                         String[] tokenized_strings = mDigester.getTokens(mInfoContext);
                         commitMessages(tokenized_strings, true);
 
@@ -252,6 +251,8 @@ public class AddInfoContextPresenter {
             @Override
             public void onClick(View v) {
                 JETAapp.getMessageManager().clearMessages();
+                if(mInfoContext.isEmpty())
+                    return;
 
                 JETAapp.getMainActivity().setBusy(true);
                 JETAapp.getMainActivity().handleBusy();

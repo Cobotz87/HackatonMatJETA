@@ -32,8 +32,17 @@ public class QueryData {
                 }
 
                 String positive = "";
-                for(String p : existObj)
-                    positive += p + (", ");
+                for(int i =0; i<existObj.size(); i++){
+                    if(existObj.size() > 1 && i == existObj.size()-1)
+                        positive += ("and");
+
+                    positive += existObj.get(i);
+                    if(i != existObj.size()-1)
+                        positive += (", ");
+                    else
+                        positive += (".");
+                }
+
                 if(!existObj.isEmpty())
                     answer = "I know " + positive;
                 else

@@ -36,6 +36,8 @@ public class ContextDigester {
         return outputSentences;
     }
 
+    ///////////////////////////////////////////////////////////////////////
+
     public static String[] getTokens(String string){
         String[] outputTokens = new String[0];
         AddInfoContextActivity activity = JETAapp.getAddInfoContextActivity();
@@ -55,6 +57,8 @@ public class ContextDigester {
         }
         return outputTokens;
     }
+
+    ///////////////////////////////////////////////////////////////////////
 
     public static String getPOSTags(String string){
         String outputTags = new String();
@@ -76,6 +80,8 @@ public class ContextDigester {
         return outputTags;
     }
 
+    ///////////////////////////////////////////////////////////////////////
+
     public static String[] getNames(String[] tokens){
         String[] outputNames = new String[0];
         AddInfoContextActivity activity = JETAapp.getAddInfoContextActivity();
@@ -96,6 +102,8 @@ public class ContextDigester {
         return outputNames;
     }
 
+    ///////////////////////////////////////////////////////////////////////
+
     public static String[] getLocations(String[] tokens){
         String[] outputNames = new String[0];
         AddInfoContextActivity activity = JETAapp.getAddInfoContextActivity();
@@ -115,6 +123,8 @@ public class ContextDigester {
         }
         return outputNames;
     }
+
+    ///////////////////////////////////////////////////////////////////////
 
     public static String[] getTokenizedPOSTags(String paragraph){
         ArrayList<String> tagsTokens = new ArrayList<String>();
